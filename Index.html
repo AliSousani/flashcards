@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>فلش‌کارت فارسی → انگلیسی (ویرایش با ✏️)</title>
+  <style>
+    :root{
+      --bg:#0e0f13; --panel:#171a21; --surface:#13161c; --text:#e8edf3; --muted:#9aa4ad;
+      --border:#2a3038; --accent:#5aa6ff; --accent2:#7ee3a9; --danger:#ff6b6b; --warn:#ffd166;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:linear-gradient(180deg,#0f1115,#0c0d11);color:var(--text);
+         font-family:system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans",Tahoma}
+    .container{max-width:980px;margin:0 auto;padding:18px}
+    h1{font-size:22px;margin:10px 0}
+    .sub{color:var(--muted);font-size:14px;margin-top:0}
+    .card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+    label{display:block;color:var(--muted);font-size:13px;margin:6px 2px}
+    textarea,input[type=text]{width:100%;border:1px solid var(--border);background:var(--surface);color:var(--text);padding:12px;border-radius:12px}
+    button{border:1px solid var(--border);background:var(--surface);color:var(--text);padding:10px 14px;border-radius:12px;cursor:pointer;transition:transform .05s ease}
+    button:active{transform:translateY(1px)}
+    button.primary{background:linear-gradient(135deg,var(--accent),#9fd0ff);color:#061323;border:0;font-weight:700}
+    button.good{background:linear-gradient(135deg,var(--accent2),#c7f5da);color:#072014;border:0;font-weight:700}
+    button.danger{background:linear-gradient(135deg,var(--danger),#ffc3c3);color:#2a0000;border:0;font-weight:700}
+    button.warn{background:linear-gradient(135deg,var(--warn),#ffe9a6);color:#3a2a00;border:0;font-weight:700}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .grow{flex:1 1 auto}
+    .pill{border:1px solid var(--border);padding:6px 10px;border-radius:999px;color:var(--muted);}
+    .hidden{filter: blur(6px); opacity:.6; transition:all .2s}
+    .faBox,.enBox{display:flex;align-items:center;justify-content:center;text-align:center;
+                  background:radial-gradient(1000px 200px at 50% 0%,#0d1016 0,#0b0d13 60%,#0a0b10 100%);
+                  border:1px dashed var(--border);border-radius:16px;padding:22px;min-height:120px}
+    .faText{font-size:28px;line-height:1.8;white-space:pre-wrap}
+    .enText{font-size:24px;line-height:1.6;white-space:pre-wrap}
+    .divider{height:1px;background:var(--border);margin:10px 0}
+    .center{text-align:center}
+    .counter{display:flex;gap:8px;flex-wrap:wrap}
+    .badge{background:#0f131a;border:1px solid var(--border);padding:6px 10px;border-radius:10px}
+    .success{border-color:#2f8f57;background:#0f1915;color:#9de7b9}
+    .repeat{border-color:#2a4e8f;background:#0f141b;color:#b6d4ff}
+    .info{background:#0e253a;border:1px solid #204466;color:#bcdcff;padding:10px 12px;border-radius:10px;margin-top:8px}
+    .toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:#0f131a;border:1px solid var(--border);padding:10px 14px;border-radius:12px;display:none}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>فلش‌کارت فارسی → انگلیسی (ویرایش با ✏️)</h1>
+    <p class="sub">همگام با Firebase Firestore — علامت‌گذاری <b>موفق/تکرار</b>، فیلتر نمایش و <b>ویرایش مستقیم</b>.</p>
+
+    <section class="card" style="margin-bottom:14px">
+      <div class="row">
+        <strong>شناسهٔ مشترک</strong>
+        <span class="pill">UID: <span id="uidSpan">—</span></span>
+        <span class="grow"></span>
+        <button id="changeUidBtn">تغییر/تنظیم شناسه</button>
+      </div>
+      <div id="uidPanel" style="display:none; margin-top:10px">
+        <label>شناسهٔ دلخواه (برای اشتراک بین دستگاه‌ها)</label>
+        <input id="uidInput" type="text" placeholder="مثلاً: adijaan یا family-cards">
+        <div class="row" style="margin-top:6px">
+          <button id="saveUidBtn" class="good">ذخیره شناسه</button>
+          <button id="cancelUidBtn">انصراف</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" style="margin-bottom:14px">
+      <div class="row">
+        <strong>افزودن / ویرایش کارت</strong>
+        <span class="pill" id="countPill">۰ کارت</span>
+        <span class="grow"></span>
+        <button id="exportBtn">برون‌ریزی (JSON)</button>
+        <button id="importBtn">درون‌ریزی (JSON)</button>
+        <input type="file" id="filePicker" accept=".json" style="display:none">
+      </div>
+      <label>جملهٔ فارسی</label>
+      <textarea id="faInput" placeholder="مثال: امروز حتماً نیم‌ساعت پیاده‌روی می‌کنم."></textarea>
+      <label>ترجمهٔ انگلیسی</label>
+      <textarea id="enInput" placeholder="مثال: I will definitely take a 30-minute walk today."></textarea>
+      <div class="row" style="margin-top:8px">
+        <button id="addBtn" class="primary">افزودن</button>
+        <button id="saveEditBtn" class="good" style="display:none">ذخیرهٔ تغییرات</button>
+        <button id="cancelEditBtn" style="display:none">انصراف از ویرایش</button>
+        <button id="clearBtn">پاک‌کردن ورودی‌ها</button>
+        <span class="grow"></span>
+        <button id="editCurrentBtn">✏️ ویرایش کارت فعلی</button>
+        <button id="deleteCurrentBtn" class="danger">حذف کارت فعلی</button>
+      </div>
+      <div id="editInfo" class="info" style="display:none">در حال ویرایش این کارت هستید. پس از تغییر متن‌ها، «ذخیرهٔ تغییرات» را بزنید یا «انصراف از ویرایش».</div>
+
+      <div class="row" style="margin-top:10px">
+        <div class="badge">حالت نمایش:</div>
+        <button id="modeRepeatBtn" class="warn">فقط «تکرار»</button>
+        <button id="modeAllBtn">همه کارت‌ها</button>
+        <label class="badge"><input type="checkbox" id="hideSuccessChk" checked> پنهانِ موفق‌ها</label>
+        <span class="grow"></span>
+        <div class="counter">
+          <span class="badge repeat">تکرار: <span id="repeatCount">۰</span></span>
+          <span class="badge success">موفق: <span id="successCount">۰</span></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="faBox"><div class="faText" id="faText">— هنوز کارتی اضافه نشده.</div></div>
+      <div class="divider"></div>
+      <div class="enBox"><div class="enText hidden" id="enText">English translation appears here.</div></div>
+
+      <div class="row center" style="margin-top:12px">
+        <button id="revealBtn" class="primary">نمایش ترجمه</button>
+        <button id="hideBtn">پنهان کردن</button>
+        <span class="grow"></span>
+        <button id="markRepeatBtn" class="warn">↻ علامت «تکرار»</button>
+        <button id="markSuccessBtn" class="good">✓ علامت «موفق»</button>
+        <span class="grow"></span>
+        <button id="editBtn">✏️ ویرایش این کارت</button>
+        <span class="grow"></span>
+        <button id="prevBtn">قبلی ←</button>
+        <button id="nextBtn">→ بعدی</button>
+      </div>
+    </section>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <!-- Firebase compat CDN -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+  <script>
+    // Firebase project config
+    const firebaseConfig = {
+      apiKey: "AIzaSyCI1jW-3NwZtJEXfyx1Pp0lTg9EyM4xwLQ",
+      authDomain: "flashcards-7ea58.firebaseapp.com",
+      projectId: "flashcards-7ea58",
+      storageBucket: "flashcards-7ea58.firebasestorage.app",
+      messagingSenderId: "1031346115685",
+      appId: "1:1031346115685:web:afe231ee4dab6bf6ffa28c",
+      measurementId: "G-VQECY29XS4"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    db.enablePersistence({synchronizeTabs:true}).catch(()=>{});
+
+    // UID management
+    const UID_KEY = "fa_en_cloud_uid";
+    let uid = localStorage.getItem(UID_KEY);
+    function setUid(newUid){
+      uid = newUid;
+      localStorage.setItem(UID_KEY, uid);
+      document.getElementById('uidSpan').textContent = uid;
+      setupListener();
+    }
+    if(!uid){ setUid('u_' + Math.random().toString(36).slice(2) + Date.now().toString(36)); }
+    else { document.getElementById('uidSpan').textContent = uid; }
+
+    document.getElementById('changeUidBtn').onclick = ()=>{
+      document.getElementById('uidPanel').style.display = 'block';
+      document.getElementById('uidInput').value = uid;
+    };
+    document.getElementById('cancelUidBtn').onclick = ()=>{
+      document.getElementById('uidPanel').style.display = 'none';
+    };
+    document.getElementById('saveUidBtn').onclick = ()=>{
+      const v = document.getElementById('uidInput').value.trim();
+      if(!v){ alert('شناسه نمی‌تواند خالی باشد.'); return; }
+      setUid(v); document.getElementById('uidPanel').style.display = 'none';
+    };
+
+    // Firestore references
+    let cardsCol = null;
+    let unsubscribe = null;
+
+    // State
+    let cards = []; // {id, fa, en, status:'repeat'|'success', createdAt}
+    let order = [];
+    let filtered = [];
+    let idx = 0;
+    let showMode = 'repeatOnly';
+    let hideSuccess = true;
+    // Edit state
+    let editId = null;
+
+    const $ = (id)=>document.getElementById(id);
+    const fmt = (n)=> new Intl.NumberFormat('fa-IR').format(n);
+    const toast = (msg)=>{ const t=$('toast'); t.textContent=msg; t.style.display='block'; setTimeout(()=>t.style.display='none',1600); };
+
+    function applyFilter(){
+      filtered = cards
+        .map((c,i)=>({c,i}))
+        .filter(({c})=>{
+          if(showMode==='repeatOnly') return (c.status||'repeat')==='repeat';
+          if(hideSuccess) return (c.status||'repeat')!=='success';
+          return true;
+        })
+        .map(x=>x.i);
+      if(filtered.length===0){ idx=0; }
+      else if(idx >= filtered.length){ idx = filtered.length-1; }
+    }
+    function refreshOrder(){ order = filtered.slice(); }
+    function updateCounters(){
+      const repeatCount = cards.filter(x=>(x.status||'repeat')==='repeat').length;
+      const successCount = cards.filter(x=>(x.status||'repeat')==='success').length;
+      $('countPill').textContent = fmt(cards.length)+' کارت';
+      $('repeatCount').textContent = fmt(repeatCount);
+      $('successCount').textContent = fmt(successCount);
+    }
+    function render(){
+      updateCounters();
+      applyFilter();
+      refreshOrder();
+      const fa = $('faText'), en = $('enText');
+      if(order.length===0){
+        fa.textContent = '— هنوز کارتی برای نمایش در این فیلتر وجود ندارد.';
+        en.textContent = 'English translation appears here.';
+        en.classList.add('hidden');
+        return;
+      }
+      const real = order[idx];
+      const card = cards[real];
+      fa.textContent = card.fa;
+      en.textContent = card.en;
+      en.classList.add('hidden');
+    }
+
+    async function addCard(){
+      const fa = $('faInput').value.trim();
+      const en = $('enInput').value.trim();
+      if(!fa || !en){ alert('لطفاً هر دو فیلد را پر کنید.'); return; }
+      await cardsCol.add({ fa, en, status:'repeat', createdAt: firebase.firestore.FieldValue.serverTimestamp() });
+      $('faInput').value=''; $('enInput').value='';
+      toast('کارت اضافه شد');
+    }
+    function startEdit(){
+      if(order.length===0) return;
+      const real = order[idx];
+      const card = cards[real];
+      editId = card.id;
+      $('faInput').value = card.fa;
+      $('enInput').value = card.en;
+      $('addBtn').style.display = 'none';
+      $('saveEditBtn').style.display = 'inline-block';
+      $('cancelEditBtn').style.display = 'inline-block';
+      $('editInfo').style.display = 'block';
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+    async function saveEdit(){
+      if(!editId) return;
+      const fa = $('faInput').value.trim();
+      const en = $('enInput').value.trim();
+      if(!fa || !en){ alert('هر دو فیلد را پر کنید.'); return; }
+      await cardsCol.doc(editId).update({fa, en});
+      cancelEdit();
+      toast('تغییرات ذخیره شد');
+    }
+    function cancelEdit(){
+      editId = null;
+      $('faInput').value=''; $('enInput').value='';
+      $('addBtn').style.display = 'inline-block';
+      $('saveEditBtn').style.display = 'none';
+      $('cancelEditBtn').style.display = 'none';
+      $('editInfo').style.display = 'none';
+    }
+    async function updateStatus(status){
+      if(order.length===0) return;
+      const real = order[idx];
+      await cardsCol.doc(cards[real].id).update({status});
+      toast(status==='success' ? 'به موفق تغییر کرد' : 'به تکرار تغییر کرد');
+    }
+    async function deleteCurrent(){
+      if(order.length===0) return;
+      const real = order[idx];
+      if(confirm('کارت فعلی حذف شود؟')){
+        await cardsCol.doc(cards[real].id).delete();
+        toast('کارت حذف شد');
+      }
+    }
+    function next(){ if(order.length===0) return; idx=(idx+1)%order.length; render(); }
+    function prev(){ if(order.length===0) return; idx=(idx-1+order.length)%order.length; render(); }
+    function reveal(){ $('enText').classList.remove('hidden'); }
+    function hide(){ $('enText').classList.add('hidden'); }
+
+    function exportJSON(){
+      const data = JSON.stringify(cards.map(({fa,en,status})=>({fa,en,status:status||'repeat'})), null, 2);
+      const blob = new Blob([data],{type:"application/json"});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href=url; a.download='fa-en-cards.json'; a.click();
+      URL.revokeObjectURL(url);
+    }
+    function importJSON(file){
+      const reader = new FileReader();
+      reader.onload = async (e)=>{
+        try{
+          const arr = JSON.parse(e.target.result);
+          if(!Array.isArray(arr)) throw new Error('فرمت نامعتبر');
+          const cleaned = arr.map(x=>({fa:String(x.fa||'').trim(), en:String(x.en||'').trim(), status:(x.status==='success'?'success':'repeat')})).filter(x=>x.fa && x.en);
+          if(!cleaned.length){ alert('دادهٔ معتبر یافت نشد.'); return; }
+          for(const c of cleaned){
+            await cardsCol.add({fa:c.fa, en:c.en, status:c.status, createdAt: firebase.firestore.FieldValue.serverTimestamp()});
+          }
+          alert('ورود داده انجام شد.');
+        }catch(err){ alert('خطا در خواندن فایل: '+err.message); }
+      };
+      reader.readAsText(file, 'utf-8');
+    }
+
+    function setupListener(){
+      if(unsubscribe) unsubscribe();
+      cardsCol = db.collection('users').doc(uid).collection('cards');
+      unsubscribe = cardsCol.orderBy('createdAt','asc').onSnapshot((snap)=>{
+        cards = snap.docs.map(d=>({id:d.id, ...d.data()}));
+        if(idx >= cards.length) idx = Math.max(0, cards.length-1);
+        render();
+      });
+    }
+
+    // Wire up
+    window.addEventListener('DOMContentLoaded', ()=>{
+      setupListener(); render();
+
+      $('addBtn').onclick = addCard;
+      $('saveEditBtn').onclick = saveEdit;
+      $('cancelEditBtn').onclick = cancelEdit;
+      $('clearBtn').onclick = ()=>{$('faInput').value='';$('enInput').value='';};
+      $('deleteCurrentBtn').onclick = deleteCurrent;
+      $('editCurrentBtn').onclick = startEdit;
+
+      $('revealBtn').onclick = reveal;
+      $('hideBtn').onclick = hide;
+      $('prevBtn').onclick = prev;
+      $('nextBtn').onclick = next;
+      $('markSuccessBtn').onclick = ()=>updateStatus('success');
+      $('markRepeatBtn').onclick = ()=>updateStatus('repeat');
+      $('exportBtn').onclick = exportJSON;
+      $('importBtn').onclick = ()=>$('filePicker').click();
+      $('filePicker').addEventListener('change', (e)=>{ if(e.target.files && e.target.files[0]) importJSON(e.target.files[0]); e.target.value=""; });
+
+      $('modeRepeatBtn').onclick = ()=>{ showMode='repeatOnly'; render(); };
+      $('modeAllBtn').onclick = ()=>{ showMode='all'; render(); };
+      $('hideSuccessChk').onchange = (e)=>{ hideSuccess = e.target.checked; render(); };
+      $('editBtn').onclick = startEdit;
+
+      document.addEventListener('keydown', (ev)=>{
+        if(ev.key===' '){ ev.preventDefault(); const el=$('enText'); el.classList.contains('hidden')?reveal():hide(); }
+        else if(ev.key==='ArrowRight'){ next(); }
+        else if(ev.key==='ArrowLeft'){ prev(); }
+        else if((ev.ctrlKey||ev.metaKey) && ev.key==='Enter'){ editId ? saveEdit() : addCard(); }
+        else if(ev.key==='Escape'){ if(editId) cancelEdit(); }
+        else if(ev.key==='1'){ updateStatus('repeat'); }
+        else if(ev.key==='2'){ updateStatus('success'); }
+      });
+    });
+  </script>
+</body>
+</html>
