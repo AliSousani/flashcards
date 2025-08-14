@@ -1,136 +1,176 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>فلش‌کارت فارسی → انگلیسی (ویرایش با ✏️)</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>فلش‌کارت فارسی → انگلیسی — نسخه‌ی جدید</title>
+  <meta name="theme-color" content="#0f1117">
   <style>
+    @font-face{
+      font-family:"Vazirmatn";
+      src: url("https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts/variable/Vazirmatn[wght].woff2") format("woff2");
+      font-display:swap;
+    }
     :root{
-      --bg:#0e0f13; --panel:#171a21; --surface:#13161c; --text:#e8edf3; --muted:#9aa4ad;
-      --border:#2a3038; --accent:#5aa6ff; --accent2:#7ee3a9; --danger:#ff6b6b; --warn:#ffd166;
+      --bg:#0f1117; --panel:#141925; --surface:#0f1420; --text:#e9eef5; --muted:#9dacbf;
+      --border:#24304a; --accent:#74b9ff; --ok:#2ecc71; --warn:#ff7675; --chip:#1a2132;
+      --radius:16px; --radius-sm:12px; --shadow:0 12px 34px rgba(0,0,0,.35);
     }
     *{box-sizing:border-box}
-    html,body{height:100%}
-    body{margin:0;background:linear-gradient(180deg,#0f1115,#0c0d11);color:var(--text);
-         font-family:system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans",Tahoma}
-    .container{max-width:980px;margin:0 auto;padding:18px}
-    h1{font-size:22px;margin:10px 0}
-    .sub{color:var(--muted);font-size:14px;margin-top:0}
-    .card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
-    label{display:block;color:var(--muted);font-size:13px;margin:6px 2px}
-    textarea,input[type=text]{width:100%;border:1px solid var(--border);background:var(--surface);color:var(--text);padding:12px;border-radius:12px}
-    button{border:1px solid var(--border);background:var(--surface);color:var(--text);padding:10px 14px;border-radius:12px;cursor:pointer;transition:transform .05s ease}
-    button:active{transform:translateY(1px)}
-    button.primary{background:linear-gradient(135deg,var(--accent),#9fd0ff);color:#061323;border:0;font-weight:700}
-    button.good{background:linear-gradient(135deg,var(--accent2),#c7f5da);color:#072014;border:0;font-weight:700}
-    button.danger{background:linear-gradient(135deg,var(--danger),#ffc3c3);color:#2a0000;border:0;font-weight:700}
-    button.warn{background:linear-gradient(135deg,var(--warn),#ffe9a6);color:#3a2a00;border:0;font-weight:700}
-    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-    .grow{flex:1 1 auto}
-    .pill{border:1px solid var(--border);padding:6px 10px;border-radius:999px;color:var(--muted);}
-    .hidden{filter: blur(6px); opacity:.6; transition:all .2s}
-    .faBox,.enBox{display:flex;align-items:center;justify-content:center;text-align:center;
-                  background:radial-gradient(1000px 200px at 50% 0%,#0d1016 0,#0b0d13 60%,#0a0b10 100%);
-                  border:1px dashed var(--border);border-radius:16px;padding:22px;min-height:120px}
-    .faText{font-size:28px;line-height:1.8;white-space:pre-wrap}
-    .enText{font-size:24px;line-height:1.6;white-space:pre-wrap}
-    .divider{height:1px;background:var(--border);margin:10px 0}
-    .center{text-align:center}
-    .counter{display:flex;gap:8px;flex-wrap:wrap}
-    .badge{background:#0f131a;border:1px solid var(--border);padding:6px 10px;border-radius:10px}
-    .success{border-color:#2f8f57;background:#0f1915;color:#9de7b9}
-    .repeat{border-color:#2a4e8f;background:#0f141b;color:#b6d4ff}
-    .info{background:#0e253a;border:1px solid #204466;color:#bcdcff;padding:10px 12px;border-radius:10px;margin-top:8px}
-    .toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:#0f131a;border:1px solid var(--border);padding:10px 14px;border-radius:12px;display:none}
+    html,body{margin:0;background:var(--bg);color:var(--text);font-family:Vazirmatn,system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",Tahoma}
+    .wrap{max-width:860px;margin:18px auto 80px;padding:0 14px}
+    .card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow)}
+    .card+.card{margin-top:14px}
+    h1,h2{margin:0 0 10px 0}
+    h1{font-size:20px}
+    h2{font-size:18px}
+    .muted{color:var(--muted);font-size:12px}
+    .row{display:flex;gap:10px;flex-wrap:wrap}
+    .row>*{flex:1 1 220px}
+    input,select,textarea,button{
+      width:100%;background:var(--surface);color:var(--text);border:1px solid var(--border);
+      padding:12px;border-radius:var(--radius-sm);font-size:15px;outline:none;
+    }
+    textarea{min-height:86px;resize:vertical}
+    button{cursor:pointer;font-weight:700}
+    button.primary{background:linear-gradient(135deg,var(--accent),#a4d3ff);color:#041321;border:0}
+    button.ok{background:linear-gradient(135deg,#33df98,#bff5dc);color:#04241a;border:0}
+    button.warn{background:linear-gradient(135deg,#ff6b6b,#ffc6c6);color:#2a0000;border:0}
+    button.ghost{background:transparent;border:1px dashed var(--border)}
+    button.secondary{background:#1a2336;border:1px solid #2b3958}
+    .toolbar{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+    .badge{background:var(--chip);border:1px solid var(--border);padding:6px 10px;border-radius:999px;color:var(--muted);font-size:12px}
+    .big{background:radial-gradient(1000px 200px at 50% 0%,#0d121e 0,#0b0f19 60%,#090d15 100%);border:1px dashed var(--border);border-radius:var(--radius);padding:20px;min-height:140px;text-align:center}
+    .faText{font-size:22px;line-height:1.9;white-space:pre-wrap}
+    .enText{font-size:18px;line-height:1.7;white-space:pre-wrap;color:#d4ffe7}
+    .hr{height:1px;background:var(--border);margin:10px 0}
+    .chips{display:flex;gap:8px;flex-wrap:wrap}
+    .chip{background:var(--chip);border:1px solid var(--border);border-radius:999px;padding:8px 12px;font-size:13px;color:var(--text)}
+    .grid-mini{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    @media (max-width:540px){.grid-mini{grid-template-columns:1fr}}
+    .item{background:#0e1422;border:1px solid var(--border);border-radius:12px;padding:10px}
+    .hint{color:var(--muted);font-size:12px}
+    .uid{direction:ltr;text-align:left}
+    .toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:#0f131a;border:1px solid var(--border);padding:10px 14px;border-radius:12px;display:none;z-index:5}
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>فلش‌کارت فارسی → انگلیسی (ویرایش با ✏️)</h1>
-    <p class="sub">همگام با Firebase Firestore — علامت‌گذاری <b>موفق/تکرار</b>، فیلتر نمایش و <b>ویرایش مستقیم</b>.</p>
-
-    <section class="card" style="margin-bottom:14px">
-      <div class="row">
-        <strong>شناسهٔ مشترک</strong>
-        <span class="pill">UID: <span id="uidSpan">—</span></span>
-        <span class="grow"></span>
-        <button id="changeUidBtn">تغییر/تنظیم شناسه</button>
+  <div class="wrap">
+    <header class="card" style="display:flex;align-items:center;gap:10px;justify-content:space-between">
+      <div>
+        <h1>فلش‌کارت فارسی → انگلیسی</h1>
+        <div class="muted">نسخه‌ی گرافیکی + سرفصل + فیلتر | مناسب iPhone 13 Pro Max</div>
       </div>
-      <div id="uidPanel" style="display:none; margin-top:10px">
-        <label>شناسهٔ دلخواه (برای اشتراک بین دستگاه‌ها)</label>
-        <input id="uidInput" type="text" placeholder="مثلاً: adijaan یا family-cards">
-        <div class="row" style="margin-top:6px">
-          <button id="saveUidBtn" class="good">ذخیره شناسه</button>
-          <button id="cancelUidBtn">انصراف</button>
+      <div class="badge" id="totalBadge">۰ کارت</div>
+    </header>
+
+    <section class="card" id="viewer">
+      <h2>نمایش کارت‌ها</h2>
+      <div class="row" style="margin:8px 0 10px">
+        <div>
+          <label class="hint">سرفصلِ نمایش</label>
+          <select id="filterCategory"></select>
+        </div>
+        <div>
+          <label class="hint">حالت نمایش</label>
+          <select id="viewMode">
+            <option value="repeat">فقط «تکرار»</option>
+            <option value="all">همه کارت‌ها</option>
+          </select>
+        </div>
+        <div>
+          <label class="hint">ترتیب</label>
+          <select id="viewOrder">
+            <option value="asc">قدیمی → جدید</option>
+            <option value="desc">جدید → قدیمی</option>
+            <option value="random">تصادفی</option>
+          </select>
         </div>
       </div>
-    </section>
 
-    <section class="card" style="margin-bottom:14px">
-      <div class="row">
-        <strong>افزودن / ویرایش کارت</strong>
-        <span class="pill" id="countPill">۰ کارت</span>
-        <span class="grow"></span>
-        <button id="exportBtn">برون‌ریزی (JSON)</button>
-        <button id="importBtn">درون‌ریزی (JSON)</button>
-        <input type="file" id="filePicker" accept=".json" style="display:none">
+      <div class="big">
+        <div id="faText" class="faText">— هنوز کارتی اضافه نشده —</div>
+        <div class="hr"></div>
+        <div id="enText" class="enText" style="display:none">English appears here.</div>
       </div>
-      <label>جملهٔ فارسی</label>
-      <textarea id="faInput" placeholder="مثال: امروز حتماً نیم‌ساعت پیاده‌روی می‌کنم."></textarea>
-      <label>ترجمهٔ انگلیسی</label>
-      <textarea id="enInput" placeholder="مثال: I will definitely take a 30-minute walk today."></textarea>
-      <div class="row" style="margin-top:8px">
-        <button id="addBtn" class="primary">افزودن</button>
-        <button id="saveEditBtn" class="good" style="display:none">ذخیرهٔ تغییرات</button>
-        <button id="cancelEditBtn" style="display:none">انصراف از ویرایش</button>
-        <button id="clearBtn">پاک‌کردن ورودی‌ها</button>
-        <span class="grow"></span>
-        <button id="editCurrentBtn">✏️ ویرایش کارت فعلی</button>
-        <button id="deleteCurrentBtn" class="danger">حذف کارت فعلی</button>
-      </div>
-      <div id="editInfo" class="info" style="display:none">در حال ویرایش این کارت هستید. پس از تغییر متن‌ها، «ذخیرهٔ تغییرات» را بزنید یا «انصراف از ویرایش».</div>
 
-      <div class="row" style="margin-top:10px">
-        <div class="badge">حالت نمایش:</div>
-        <button id="modeRepeatBtn" class="warn">فقط «تکرار»</button>
-        <button id="modeAllBtn">همه کارت‌ها</button>
-        <label class="badge"><input type="checkbox" id="hideSuccessChk" checked> پنهانِ موفق‌ها</label>
-        <span class="grow"></span>
-        <div class="counter">
-          <span class="badge repeat">تکرار: <span id="repeatCount">۰</span></span>
-          <span class="badge success">موفق: <span id="successCount">۰</span></span>
-        </div>
+      <div class="toolbar" style="margin-top:10px">
+        <button id="prevBtn" class="secondary">← قبلی</button>
+        <button id="toggleEnBtn" class="ghost">نمایش ترجمه</button>
+        <button id="nextBtn" class="secondary">بعدی →</button>
+        <button id="markSuccessBtn" class="ok">✓ موفق</button>
+        <button id="incRepeatBtn" class="secondary">↻ +1 تکرار</button>
       </div>
     </section>
 
     <section class="card">
-      <div class="faBox"><div class="faText" id="faText">— هنوز کارتی اضافه نشده.</div></div>
-      <div class="divider"></div>
-      <div class="enBox"><div class="enText hidden" id="enText">English translation appears here.</div></div>
-
-      <div class="row center" style="margin-top:12px">
-        <button id="revealBtn" class="primary">نمایش ترجمه</button>
-        <button id="hideBtn">پنهان کردن</button>
-        <span class="grow"></span>
-        <button id="markRepeatBtn" class="warn">↻ علامت «تکرار»</button>
-        <button id="markSuccessBtn" class="good">✓ علامت «موفق»</button>
-        <span class="grow"></span>
-        <button id="editBtn">✏️ ویرایش این کارت</button>
-        <span class="grow"></span>
-        <button id="prevBtn">قبلی ←</button>
-        <button id="nextBtn">→ بعدی</button>
+      <h2>تنظیماتِ نمایش</h2>
+      <div class="chips">
+        <button id="hideSuccessOn" class="chip">پنهان کردن موفق‌ها (روشن)</button>
+        <button id="hideSuccessOff" class="chip">نمایش موفق‌ها</button>
       </div>
+      <p class="hint" style="margin-top:8px">برای تمرکز روی تمرین‌ها، «پنهان کردن موفق‌ها» را روشن نگه‌دار.</p>
+    </section>
+
+    <section class="card">
+      <h2>افزودن کارت (با سرفصل)</h2>
+      <div class="row">
+        <div>
+          <label class="hint">انتخاب سرفصل</label>
+          <select id="categorySelect"></select>
+        </div>
+        <div>
+          <label class="hint">ایجاد سرفصل جدید (اختیاری)</label>
+          <input id="newCategoryInput" placeholder="مثال: کتاب تاچ‌استون ۲ / درس ۱">
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:8px">
+        <div>
+          <label class="hint">جملهٔ فارسی</label>
+          <textarea id="faInput" placeholder="متن فارسی..."></textarea>
+        </div>
+        <div>
+          <label class="hint">ترجمهٔ انگلیسی</label>
+          <textarea id="enInput" placeholder="English translation..."></textarea>
+        </div>
+      </div>
+
+      <div class="toolbar" style="margin-top:8px">
+        <button id="addBtn" class="primary">افزودن/ذخیره</button>
+        <button id="clearBtn" class="ghost">پاک‌کردن ورودی‌ها</button>
+        <button id="deleteBtn" class="warn">حذف کارت فعلی</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>آخرین کارت‌های این سرفصل</h2>
+      <div id="recentList" class="grid-mini"></div>
+    </section>
+
+    <section class="card">
+      <h2>شناسهٔ مشترک (UID)</h2>
+      <div class="row">
+        <div>
+          <input id="uidInput" class="uid" placeholder="مثلاً u_r1155ctieycme9scf1">
+        </div>
+        <div style="flex:0 0 180px">
+          <button id="saveUidBtn" class="secondary">تعیین/تغییر شناسه</button>
+        </div>
+      </div>
+      <p class="hint" style="margin-top:8px">همین UID را در همه دستگاه‌ها بزن تا داده‌ها یکی باشند.</p>
     </section>
   </div>
 
   <div id="toast" class="toast"></div>
 
-  <!-- Firebase compat CDN -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import {
+      getFirestore, doc, collection, setDoc, addDoc, getDoc, getDocs,
+      query, where, updateDoc, serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-  <script>
-    // Firebase project config
     const firebaseConfig = {
       apiKey: "AIzaSyCI1jW-3NwZtJEXfyx1Pp0lTg9EyM4xwLQ",
       authDomain: "flashcards-7ea58.firebaseapp.com",
@@ -140,218 +180,175 @@
       appId: "1:1031346115685:web:afe231ee4dab6bf6ffa28c",
       measurementId: "G-VQECY29XS4"
     };
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-    db.enablePersistence({synchronizeTabs:true}).catch(()=>{});
 
-    // UID management
-    const UID_KEY = "fa_en_cloud_uid";
-    let uid = localStorage.getItem(UID_KEY);
-    function setUid(newUid){
-      uid = newUid;
-      localStorage.setItem(UID_KEY, uid);
-      document.getElementById('uidSpan').textContent = uid;
-      setupListener();
-    }
-    if(!uid){ setUid('u_' + Math.random().toString(36).slice(2) + Date.now().toString(36)); }
-    else { document.getElementById('uidSpan').textContent = uid; }
+    const app = initializeApp(firebaseConfig);
+    const db  = getFirestore(app);
 
-    document.getElementById('changeUidBtn').onclick = ()=>{
-      document.getElementById('uidPanel').style.display = 'block';
-      document.getElementById('uidInput').value = uid;
-    };
-    document.getElementById('cancelUidBtn').onclick = ()=>{
-      document.getElementById('uidPanel').style.display = 'none';
-    };
-    document.getElementById('saveUidBtn').onclick = ()=>{
-      const v = document.getElementById('uidInput').value.trim();
-      if(!v){ alert('شناسه نمی‌تواند خالی باشد.'); return; }
-      setUid(v); document.getElementById('uidPanel').style.display = 'none';
-    };
+    const $ = id => document.getElementById(id);
+    const toastBox = $('toast');
+    const totalBadge = $('totalBadge');
 
-    // Firestore references
-    let cardsCol = null;
-    let unsubscribe = null;
+    const filterCategory = $('filterCategory');
+    const viewMode = $('viewMode');
+    const viewOrder = $('viewOrder');
+    const faText = $('faText');
+    const enText = $('enText');
+    const prevBtn = $('prevBtn');
+    const nextBtn = $('nextBtn');
+    const toggleEnBtn = $('toggleEnBtn');
+    const markSuccessBtn = $('markSuccessBtn');
+    const incRepeatBtn = $('incRepeatBtn');
+    const hideSuccessOn = $('hideSuccessOn');
+    const hideSuccessOff = $('hideSuccessOff');
+    const categorySelect = $('categorySelect');
+    const newCategoryInput = $('newCategoryInput');
+    const faInput = $('faInput');
+    const enInput = $('enInput');
+    const addBtn = $('addBtn');
+    const clearBtn = $('clearBtn');
+    const deleteBtn = $('deleteBtn');
+    const recentList = $('recentList');
+    const uidInput = $('uidInput');
+    const saveUidBtn = $('saveUidBtn');
 
-    // State
-    let cards = []; // {id, fa, en, status:'repeat'|'success', createdAt}
-    let order = [];
-    let filtered = [];
+    let UID = localStorage.getItem('flash_uid') || '';
+    if(UID) uidInput.value = UID;
+    let hideSuccess = (localStorage.getItem('hide_success')==='1');
+    let cards = [];
     let idx = 0;
-    let showMode = 'repeatOnly';
-    let hideSuccess = true;
-    // Edit state
-    let editId = null;
 
-    const $ = (id)=>document.getElementById(id);
-    const fmt = (n)=> new Intl.NumberFormat('fa-IR').format(n);
-    const toast = (msg)=>{ const t=$('toast'); t.textContent=msg; t.style.display='block'; setTimeout(()=>t.style.display='none',1600); };
+    function toast(msg){
+      toastBox.textContent = msg;
+      toastBox.style.display = 'block';
+      setTimeout(()=> toastBox.style.display='none', 1600);
+    }
 
-    function applyFilter(){
-      filtered = cards
-        .map((c,i)=>({c,i}))
-        .filter(({c})=>{
-          if(showMode==='repeatOnly') return (c.status||'repeat')==='repeat';
-          if(hideSuccess) return (c.status||'repeat')!=='success';
-          return true;
-        })
-        .map(x=>x.i);
-      if(filtered.length===0){ idx=0; }
-      else if(idx >= filtered.length){ idx = filtered.length-1; }
+    const userRef = () => doc(db, 'users', UID);
+    const catsCol = () => collection(userRef(), 'categories');
+    const cardsCol = () => collection(userRef(), 'cards');
+    function ensureUID(){ if(!UID){ alert('اول UID را در پایین صفحه تنظیم کن.'); return false; } return true; }
+
+    async function loadCategories(){
+      if(!ensureUID()) return;
+      categorySelect.innerHTML = '';
+      filterCategory.innerHTML = '';
+      const all = document.createElement('option'); all.value='__ALL__'; all.textContent='همه سرفصل‌ها';
+      filterCategory.appendChild(all);
+
+      const snap = await getDocs(catsCol());
+      if(snap.empty){ await setDoc(doc(catsCol(),'default'), {name:'عمومی'}); }
+      const snap2 = await getDocs(catsCol());
+      snap2.forEach(d=>{
+        const name = d.data()?.name;
+        if(!name) return;
+        const o1=document.createElement('option'); o1.value=name; o1.textContent=name; categorySelect.appendChild(o1);
+        const o2=document.createElement('option'); o2.value=name; o2.textContent=name; filterCategory.appendChild(o2);
+      });
+      if(filterCategory.options.length>1 && filterCategory.value===''){ filterCategory.selectedIndex = 1; }
     }
-    function refreshOrder(){ order = filtered.slice(); }
-    function updateCounters(){
-      const repeatCount = cards.filter(x=>(x.status||'repeat')==='repeat').length;
-      const successCount = cards.filter(x=>(x.status||'repeat')==='success').length;
-      $('countPill').textContent = fmt(cards.length)+' کارت';
-      $('repeatCount').textContent = fmt(repeatCount);
-      $('successCount').textContent = fmt(successCount);
+    async function ensureCategory(name){
+      const snap=await getDocs(catsCol());
+      let ok=false; snap.forEach(d=>{ if(d.data()?.name===name) ok=true; });
+      if(!ok){ await setDoc(doc(catsCol(), name.toLowerCase().replace(/\s+/g,'-')||('cat-'+Date.now())), {name}); }
     }
-    function render(){
-      updateCounters();
-      applyFilter();
-      refreshOrder();
-      const fa = $('faText'), en = $('enText');
-      if(order.length===0){
-        fa.textContent = '— هنوز کارتی برای نمایش در این فیلتر وجود ندارد.';
-        en.textContent = 'English translation appears here.';
-        en.classList.add('hidden');
+
+    async function loadCards(){
+      if(!ensureUID()) return;
+      const cat = filterCategory.value;
+      let qRef;
+      if(cat && cat!=='__ALL__'){ qRef=query(cardsCol(), where('category','==',cat)); }
+      else{ qRef=query(cardsCol()); }
+      const snap = await getDocs(qRef);
+      let arr=[]; snap.forEach(d=> arr.push({id:d.id, ...d.data(), _ref:doc(cardsCol(), d.id)}));
+
+      const mode=viewMode.value;
+      if(hideSuccess || mode==='repeat') arr=arr.filter(x=>!x.success);
+      arr.sort((a,b)=>(a.createdAt?.seconds||0)-(b.createdAt?.seconds||0));
+      if(viewOrder.value==='desc') arr.reverse();
+      if(viewOrder.value==='random') arr.sort(()=>Math.random()-0.5);
+      cards=arr; idx=0;
+      totalBadge.textContent = cards.length + ' کارت';
+      renderCard();
+    }
+
+    function renderCard(){
+      const c = cards[idx];
+      if(!c){ faText.textContent='— هنوز کارتی اضافه نشده —'; enText.textContent='English appears here.'; enText.style.display='none'; return; }
+      faText.textContent=c.fa||'—'; enText.textContent=c.en||'—'; enText.style.display='none';
+    }
+
+    prevBtn.onclick = ()=>{ if(!cards.length) return; idx=(idx-1+cards.length)%cards.length; enText.style.display='none'; renderCard(); };
+    nextBtn.onclick = ()=>{ if(!cards.length) return; idx=(idx+1)%cards.length; enText.style.display='none'; renderCard(); };
+    toggleEnBtn.onclick = ()=>{ enText.style.display=(enText.style.display==='none')?'block':'none'; };
+    markSuccessBtn.onclick = async ()=>{ const c=cards[idx]; if(!c) return; await updateDoc(c._ref,{success:true}); toast('به عنوان «موفق» علامت خورد.'); await loadCards(); await loadRecent(); };
+    incRepeatBtn.onclick = async ()=>{ const c=cards[idx]; if(!c) return; const rc=Number(c.repeatCount||0)+1; await updateDoc(c._ref,{repeatCount:rc}); toast('تکرار +1 ثبت شد.'); };
+    hideSuccessOn.onclick=async()=>{ hideSuccess=true; localStorage.setItem('hide_success','1'); await loadCards(); };
+    hideSuccessOff.onclick=async()=>{ hideSuccess=false; localStorage.setItem('hide_success','0'); await loadCards(); };
+    filterCategory.onchange=async()=>{ await loadCards(); await loadRecent(); };
+    viewMode.onchange=async()=>{ await loadCards(); };
+    viewOrder.onchange=async()=>{ await loadCards(); };
+
+    addBtn.onclick = async ()=>{
+      if(!ensureUID()) return;
+      const newCat=newCategoryInput.value.trim();
+      const cat=newCat||categorySelect.value;
+      const fa=faInput.value.trim();
+      const en=enInput.value.trim();
+      if(!cat){ alert('سرفصل را انتخاب یا ایجاد کن.'); return; }
+      if(!fa||!en){ alert('جملهٔ فارسی و ترجمهٔ انگلیسی لازم است.'); return; }
+      await ensureCategory(cat);
+      await addDoc(cardsCol(), { fa,en,category:cat,success:false,repeatCount:0,createdAt:serverTimestamp() });
+      faInput.value=''; enInput.value=''; if(newCat) newCategoryInput.value='';
+      if(newCat){ await loadCategories(); filterCategory.value=cat; }
+      await loadCards(); await loadRecent(); toast('کارت ذخیره شد.');
+    };
+    clearBtn.onclick = ()=>{ faInput.value=''; enInput.value=''; };
+    deleteBtn.onclick = async ()=>{
+      const c = cards[idx]; if(!c){ alert('کارت فعالی برای حذف نیست.'); return; }
+      if(!confirm('کارت فعلی حذف شود؟')) return;
+      await updateDoc(c._ref,{deleted:true, fa:'', en:''}); toast('کارت حذف شد.'); await loadCards(); await loadRecent();
+    };
+
+    async function loadRecent(){
+      if(!ensureUID()) return;
+      recentList.innerHTML='';
+      const currCat=filterCategory.value;
+      if(!currCat || currCat==='__ALL__'){
+        recentList.innerHTML='<div class="hint">برای دیدن لیست اخیر، یک سرفصل از بالا انتخاب کن.</div>'; return;
+      }
+      const snap=await getDocs(cardsCol());
+      let arr=[]; snap.forEach(d=>{ const v=d.data(); if(v.category===currCat && !v.deleted) arr.push(v); });
+      arr.sort((a,b)=>(a.createdAt?.seconds||0)-(b.createdAt?.seconds||0));
+      arr=arr.slice(-8).reverse();
+      if(!arr.length){ recentList.innerHTML='<div class="hint">هنوز کارتی برای این سرفصل ذخیره نشده.</div>'; return; }
+      arr.forEach(x=>{
+        const el=document.createElement('div'); el.className='item';
+        el.innerHTML=`
+          <div class="hint" style="margin-bottom:6px">${x.category}</div>
+          <div style="font-size:14px">${x.fa||''}</div>
+          <div class="hr"></div>
+          <div style="font-size:12px;color:#bfe7ff">${x.en||''}</div>
+          <div style="margin-top:6px;display:flex;gap:8px;flex-wrap:wrap">
+            <span class="badge">موفق: ${x.success?'✓':'—'}</span>
+            <span class="badge">تکرار: ${x.repeatCount||0}</span>
+          </div>`;
+        recentList.appendChild(el);
+      });
+    }
+
+    saveUidBtn.onclick = async ()=>{
+      const v=uidInput.value.trim(); if(!v){ alert('UID خالی است.'); return; }
+      UID=v; localStorage.setItem('flash_uid', UID);
+      await loadCategories(); await loadCards(); await loadRecent(); toast('UID تنظیم شد.');
+    };
+
+    (async function boot(){
+      if(!UID){
+        filterCategory.innerHTML='<option>اول UID را پایین تنظیم کن</option>';
         return;
       }
-      const real = order[idx];
-      const card = cards[real];
-      fa.textContent = card.fa;
-      en.textContent = card.en;
-      en.classList.add('hidden');
-    }
-
-    async function addCard(){
-      const fa = $('faInput').value.trim();
-      const en = $('enInput').value.trim();
-      if(!fa || !en){ alert('لطفاً هر دو فیلد را پر کنید.'); return; }
-      await cardsCol.add({ fa, en, status:'repeat', createdAt: firebase.firestore.FieldValue.serverTimestamp() });
-      $('faInput').value=''; $('enInput').value='';
-      toast('کارت اضافه شد');
-    }
-    function startEdit(){
-      if(order.length===0) return;
-      const real = order[idx];
-      const card = cards[real];
-      editId = card.id;
-      $('faInput').value = card.fa;
-      $('enInput').value = card.en;
-      $('addBtn').style.display = 'none';
-      $('saveEditBtn').style.display = 'inline-block';
-      $('cancelEditBtn').style.display = 'inline-block';
-      $('editInfo').style.display = 'block';
-      window.scrollTo({top:0, behavior:'smooth'});
-    }
-    async function saveEdit(){
-      if(!editId) return;
-      const fa = $('faInput').value.trim();
-      const en = $('enInput').value.trim();
-      if(!fa || !en){ alert('هر دو فیلد را پر کنید.'); return; }
-      await cardsCol.doc(editId).update({fa, en});
-      cancelEdit();
-      toast('تغییرات ذخیره شد');
-    }
-    function cancelEdit(){
-      editId = null;
-      $('faInput').value=''; $('enInput').value='';
-      $('addBtn').style.display = 'inline-block';
-      $('saveEditBtn').style.display = 'none';
-      $('cancelEditBtn').style.display = 'none';
-      $('editInfo').style.display = 'none';
-    }
-    async function updateStatus(status){
-      if(order.length===0) return;
-      const real = order[idx];
-      await cardsCol.doc(cards[real].id).update({status});
-      toast(status==='success' ? 'به موفق تغییر کرد' : 'به تکرار تغییر کرد');
-    }
-    async function deleteCurrent(){
-      if(order.length===0) return;
-      const real = order[idx];
-      if(confirm('کارت فعلی حذف شود؟')){
-        await cardsCol.doc(cards[real].id).delete();
-        toast('کارت حذف شد');
-      }
-    }
-    function next(){ if(order.length===0) return; idx=(idx+1)%order.length; render(); }
-    function prev(){ if(order.length===0) return; idx=(idx-1+order.length)%order.length; render(); }
-    function reveal(){ $('enText').classList.remove('hidden'); }
-    function hide(){ $('enText').classList.add('hidden'); }
-
-    function exportJSON(){
-      const data = JSON.stringify(cards.map(({fa,en,status})=>({fa,en,status:status||'repeat'})), null, 2);
-      const blob = new Blob([data],{type:"application/json"});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a'); a.href=url; a.download='fa-en-cards.json'; a.click();
-      URL.revokeObjectURL(url);
-    }
-    function importJSON(file){
-      const reader = new FileReader();
-      reader.onload = async (e)=>{
-        try{
-          const arr = JSON.parse(e.target.result);
-          if(!Array.isArray(arr)) throw new Error('فرمت نامعتبر');
-          const cleaned = arr.map(x=>({fa:String(x.fa||'').trim(), en:String(x.en||'').trim(), status:(x.status==='success'?'success':'repeat')})).filter(x=>x.fa && x.en);
-          if(!cleaned.length){ alert('دادهٔ معتبر یافت نشد.'); return; }
-          for(const c of cleaned){
-            await cardsCol.add({fa:c.fa, en:c.en, status:c.status, createdAt: firebase.firestore.FieldValue.serverTimestamp()});
-          }
-          alert('ورود داده انجام شد.');
-        }catch(err){ alert('خطا در خواندن فایل: '+err.message); }
-      };
-      reader.readAsText(file, 'utf-8');
-    }
-
-    function setupListener(){
-      if(unsubscribe) unsubscribe();
-      cardsCol = db.collection('users').doc(uid).collection('cards');
-      unsubscribe = cardsCol.orderBy('createdAt','asc').onSnapshot((snap)=>{
-        cards = snap.docs.map(d=>({id:d.id, ...d.data()}));
-        if(idx >= cards.length) idx = Math.max(0, cards.length-1);
-        render();
-      });
-    }
-
-    // Wire up
-    window.addEventListener('DOMContentLoaded', ()=>{
-      setupListener(); render();
-
-      $('addBtn').onclick = addCard;
-      $('saveEditBtn').onclick = saveEdit;
-      $('cancelEditBtn').onclick = cancelEdit;
-      $('clearBtn').onclick = ()=>{$('faInput').value='';$('enInput').value='';};
-      $('deleteCurrentBtn').onclick = deleteCurrent;
-      $('editCurrentBtn').onclick = startEdit;
-
-      $('revealBtn').onclick = reveal;
-      $('hideBtn').onclick = hide;
-      $('prevBtn').onclick = prev;
-      $('nextBtn').onclick = next;
-      $('markSuccessBtn').onclick = ()=>updateStatus('success');
-      $('markRepeatBtn').onclick = ()=>updateStatus('repeat');
-      $('exportBtn').onclick = exportJSON;
-      $('importBtn').onclick = ()=>$('filePicker').click();
-      $('filePicker').addEventListener('change', (e)=>{ if(e.target.files && e.target.files[0]) importJSON(e.target.files[0]); e.target.value=""; });
-
-      $('modeRepeatBtn').onclick = ()=>{ showMode='repeatOnly'; render(); };
-      $('modeAllBtn').onclick = ()=>{ showMode='all'; render(); };
-      $('hideSuccessChk').onchange = (e)=>{ hideSuccess = e.target.checked; render(); };
-      $('editBtn').onclick = startEdit;
-
-      document.addEventListener('keydown', (ev)=>{
-        if(ev.key===' '){ ev.preventDefault(); const el=$('enText'); el.classList.contains('hidden')?reveal():hide(); }
-        else if(ev.key==='ArrowRight'){ next(); }
-        else if(ev.key==='ArrowLeft'){ prev(); }
-        else if((ev.ctrlKey||ev.metaKey) && ev.key==='Enter'){ editId ? saveEdit() : addCard(); }
-        else if(ev.key==='Escape'){ if(editId) cancelEdit(); }
-        else if(ev.key==='1'){ updateStatus('repeat'); }
-        else if(ev.key==='2'){ updateStatus('success'); }
-      });
-    });
+      await loadCategories(); await loadCards(); await loadRecent();
+    })();
   </script>
 </body>
 </html>
