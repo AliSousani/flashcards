@@ -266,7 +266,7 @@
       arr.sort((a,b)=>(a.createdAt?.seconds||0)-(b.createdAt?.seconds||0));
       if(viewOrder.value==='desc') arr.reverse();
       if(viewOrder.value==='random') arr.sort(()=>Math.random()-0.5);
-      cards=arr; idx=0;
+      cards=arr; idx=0; // فقط هنگام بارگذاری/تغییر فیلتر ریست می‌کنیم
       totalBadge.textContent = cards.length + ' کارت';
       renderCard();
     }
@@ -280,8 +280,36 @@
     prevBtn.onclick = ()=>{ if(!cards.length) return; idx=(idx-1+cards.length)%cards.length; enText.style.display='none'; renderCard(); };
     nextBtn.onclick = ()=>{ if(!cards.length) return; idx=(idx+1)%cards.length; enText.style.display='none'; renderCard(); };
     toggleEnBtn.onclick = ()=>{ enText.style.display=(enText.style.display==='none')?'block':'none'; };
-    markSuccessBtn.onclick = async ()=>{ const c=cards[idx]; if(!c) return; await updateDoc(c._ref,{success:true}); toast('به عنوان «موفق» علامت خورد.'); await loadCards(); await loadRecent(); };
-    incRepeatBtn.onclick = async ()=>{ const c=cards[idx]; if(!c) return; const rc=Number(c.repeatCount||0)+1; await updateDoc(c._ref,{repeatCount:rc}); toast('تکرار +1 ثبت شد.'); };
+
+    // --- FIX: بعد از «موفق»، از اولِ لیست شروع نکن ---
+    markSuccessBtn.onclick = async ()=>{
+      const c = cards[idx]; if(!c) return;
+      await updateDoc(c._ref,{success:true});
+      c.success = true;
+      toast('به عنوان «موفق» علامت خورد.');
+
+      const shouldRemove = (hideSuccess || viewMode.value==='repeat');
+      if(shouldRemove){
+        // حذف از صف تکرار و ماندن روی همان ایندکس برای نمایش کارت بعدی
+        cards.splice(idx,1);
+        if(cards.length===0){
+          totalBadge.textContent = '0 کارت';
+          renderCard();
+          await loadRecent();
+          return;
+        }
+        if(idx >= cards.length) idx = 0; // اگر آخرین کارت بود
+      }else{
+        // در حالت نمایش همه‌ی کارت‌ها فقط برو کارت بعدی
+        idx = (idx+1) % cards.length;
+      }
+      totalBadge.textContent = cards.length + ' کارت';
+      enText.style.display='none';
+      renderCard();
+      await loadRecent();
+    };
+
+    incRepeatBtn.onclick = async ()=>{ const c=cards[idx]; if(!c) return; const rc=Number(c.repeatCount||0)+1; await updateDoc(c._ref,{repeatCount:rc}); c.repeatCount = rc; toast('تکرار +1 ثبت شد.'); };
     hideSuccessOn.onclick=async()=>{ hideSuccess=true; localStorage.setItem('hide_success','1'); await loadCards(); };
     hideSuccessOff.onclick=async()=>{ hideSuccess=false; localStorage.setItem('hide_success','0'); await loadCards(); };
     filterCategory.onchange=async()=>{ await loadCards(); await loadRecent(); };
